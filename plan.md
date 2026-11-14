@@ -216,6 +216,7 @@ Corresponde al estudio de la fase 4 del README, hecho primero en Python. La impl
 - Resolución frecuencial, ventanas y fuga espectral.
 - STFT: la firma cambia en el tiempo. Longitud de ventana, solape, salto, ventana de Hann, magnitud, potencia y escala logarítmica. El compromiso entre resolución temporal y frecuencial se anota con los parámetros elegidos.
 - Comparar PCM crudo, magnitudes espectrales, espectrograma, espectrograma Mel y MFCC. Mel y MFCC son representaciones distintas: MFCC aplica pasos adicionales sobre el log-Mel, entre ellos la DCT.
+- Para sonidos que no son voz, como estos golpes, el recomendado es el espectrograma Mel (MFE). Parte del espectrograma y agrupa las bandas con un banco Mel: más resolución en graves y menos en agudos, que es donde el oído distingue un golpe, con una matriz más chica que la del espectrograma lineal. MFCC queda para voz.
 
 **Práctica.** Graficar la señal, su espectro y espectrogramas con distintas ventanas y saltos. Extraer Mel o MFCC. Entrenar el clasificador de la etapa 4 con cada representación y anotar calidad y costo. Partir de ventanas de 30 ms con solape, como indica el README, y dejar constancia si el experimento fijo otro valor.
 

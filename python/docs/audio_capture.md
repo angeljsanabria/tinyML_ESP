@@ -57,4 +57,12 @@ python 2_raw_carpeta_process_1.py grabacion/parche
 
 El formato de los 81 WAV está en [formato.md](../../pruebas_py/grabacion/formato.md). Los 80 de `parche`, `anillo` y `ambiente` ya tienen su `.raw` en la `outputs` de cada carpeta. `amb_1.wav` sigue suelto en `grabacion` y no se convirtió. El tono `pruebas_py/sonidos/tono.wav` cumple el contrato y no es una clase del dataset.
 
-Cumplir el contrato de formato no acepta la toma para entrenar. Eso lo decide la etapa 2, con la forma de onda, el silencio, el clipping y el espectrograma.
+Cumplir el contrato de formato no acepta la toma para entrenar. La revisión está en `pruebas_py/firma.ipynb`. La celda de avisos compara cada toma con las otras de su carpeta e imprime `Remove-Item` y `rm` para el WAV y el `.raw`. No borra los archivos.
+
+Queda fuera de entrenamiento, validación y prueba si salta uno de estos avisos:
+
+- Ruido antes del golpe: el RMS previo al ataque tiene z robusto mayor que 6.
+- Otro sonido después: tras 100 ms por debajo de RMS 80, el nivel vuelve a pasar el 15 % del pico.
+- Golpe débil: el pico es menor que el 25 % de la mediana y menor que la mitad del pico siguiente.
+
+Con esa regla salieron `anillo-04`, `anillo-08`, `parche-19` y `parche-22`. El detalle está en [formato.md](../../pruebas_py/grabacion/formato.md). `ambiente` no dio avisos. Esas cuatro no entran al conjunto de prueba: el test tiene que ser tomas normales, guardadas para la etapa 8.

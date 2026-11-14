@@ -224,6 +224,7 @@ Equivale al disparo de grabación y al formato de la captura. El comando se empa
 - La FFT calcula la DFT. La resolución frecuencial, la ventana y la fuga espectral salen de esa elección de parámetros.
 - La STFT muestra cómo cambia el espectro. Longitud de ventana, solape, salto, ventana de Hann, magnitud, potencia y escala logarítmica.
 - PCM crudo, magnitudes espectrales, espectrograma, espectrograma Mel y MFCC son representaciones distintas. MFCC agrega pasos sobre el log-Mel, entre ellos la DCT.
+- Para sonidos que no son voz, como estos golpes, el recomendado es el espectrograma Mel (MFE). Parte del espectrograma y agrupa las bandas con un banco Mel: más resolución en graves y menos en agudos, que es donde el oído distingue un golpe, con una matriz más chica que la del espectrograma lineal. MFCC queda para voz.
 - En el ESP32, `esp-dsp` resuelve la ventana de Hann y la FFT radix-2. El banco Mel, y la DCT si la representación es MFCC, son matrices fijas. Por eso esta etapa las calcula una vez y las exporta.
 
 **Práctica.**

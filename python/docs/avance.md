@@ -143,6 +143,31 @@ Cada archivo salió con 1 canal, 2 bytes por muestra, 16 000 Hz y `contrato: Tru
 
 `pruebas_py/firma.ipynb` abre con el Python de `tinyml`. `ipykernel` 7.4.0 se instaló desde `pruebas_py` con `python -m pip install -r requirements.txt`. La notebook lee los `.raw` de `carpeta/outputs/` y dibuja el histograma de la clase y, por toma, la forma de onda y el histograma. La carpeta se cambia en `CARPETA`.
 
+La celda de avisos marcó cuatro tomas. El criterio y los números están en [audio_capture.md](audio_capture.md) y en [formato.md](../../pruebas_py/grabacion/formato.md). Esas tomas ya no están en las carpetas: se fue el WAV y el `.raw` de `anillo-04`, `anillo-08`, `parche-19` y `parche-22`. Quedan 28 parche, 28 anillo y 20 ambiente. `amb_1.wav` sigue suelto y no entra al dataset.
+
+## Qué entra al modelo
+
+`pruebas_py/muestra.ipynb` muestra una toma real cortada en ventanas de 480 muestras (30 ms). El archivo completo no es un ejemplo. En un golpe, la ventana útil es la del ataque. El salto de 256 muestras está solo para dibujar y contar. La representación, entre las muestras de la ventana y su espectro, se elige en la etapa 4.
+
+## Particiones
+
+Hecho el manifiesto. `pruebas_py/5_particiones.py` se corrió con el Python de `tinyml` y escribió [particiones.csv](../data/particiones.csv). La descripción está en [dataset.md](../data/dataset.md). Semilla 1. Por clase, 60 % entrenamiento, 20 % validación y 20 % prueba.
+
+```text
+filas: 76
+PARCHE entrenamiento 16
+PARCHE validacion 6
+PARCHE prueba 6
+ANILLO entrenamiento 16
+ANILLO validacion 6
+ANILLO prueba 6
+AMBIENTE entrenamiento 12
+AMBIENTE validacion 4
+AMBIENTE prueba 4
+```
+
+Cada fila es un archivo. Las ventanas de ese archivo quedan en esa partición. La de prueba no se usa hasta la etapa 8.
+
 ## Siguiente
 
-Seguir en la etapa 2 de [plan_python.md](../../plan_python.md). Mirar `parche`, `anillo` y `ambiente` en la notebook. Falta contar clipping y silencio, ver el espectrograma y escribir qué tomas se aceptan. El formato válido no alcanza para aceptarlas.
+Elegir el vector de cada ventana de 480 muestras. Con ese vector se entrena la línea de base de scikit-learn sobre entrenamiento y validación.

@@ -51,7 +51,7 @@ Como ingeniero, debes ser capaz de validar de forma manual que los datos recolec
 
 Para que un modelo de IA corra de forma óptima en microcontroladores, el audio nunca entra crudo. Se debe replicar exactamente el proceso visual que hiciste en Audacity (el espectrograma), pero calculándolo matemáticamente dentro del microprocesador en tiempo real.
 
-- Hito Didáctico: Comprender la aplicación de la Transformada Rápida de Fourier (FFT), las funciones de enventanado y el filtrado por banco de frecuencias espaciadas en la escala Mel (MFE).
+- Hito Didáctico: Comprender la aplicación de la Transformada Rápida de Fourier (FFT), las funciones de enventanado y el filtrado por banco de frecuencias espaciadas en la escala Mel (MFE). El espectrograma Mel es el recomendado para sonidos que no son voz, como un golpe: el banco deja más bandas en los graves, donde el oído separa esos eventos, y la matriz queda chica para el microcontrolador. Para voz se usa MFCC.
 - Implementación de Ingeniería:
   1. Integra en tu proyecto el componente oficial de Espressif `esp-dsp`. Esta librería ejecuta operaciones matemáticas complejas escritas en ensamblador optimizado para las extensiones vectoriales de tu procesador RISC-V de doble núcleo.
   2. Divide tu grabación en fragmentos fijos superpuestos (por ejemplo, ventanas de 30 ms).
